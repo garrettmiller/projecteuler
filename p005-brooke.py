@@ -5,10 +5,11 @@
 #This is Brooke's prime factorization idea implemented
 
 #Prime factorization algorithm from Will Ness on Stack Overflow
-#TODO - debugging required
+#TODO - debugging required, runs but doesn't give expected result.
 
 factorList = []
 y = 1
+result = 1
 
 def prime_factors(n):
     i = 2
@@ -25,11 +26,13 @@ def prime_factors(n):
 
 for x in range (1,21):
     #TODO - check all of this, how you mash lists together
-    factorList.append(prime_factors(x))
+    for item in prime_factors(x):
+        factorList.append(item)
+print(str(factorList))
 
 for y in factorList:
-    y = y * y
+    result = result * y
 
-print(str(y))
+print(str(result))
 
 
