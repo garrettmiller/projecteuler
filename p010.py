@@ -2,13 +2,11 @@
 #The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 #Find the sum of all the primes below two million.
 
-#This is SO SLOW lol, not sure if there's a smarter way to do this.
-
-#TODO - test this, takes forever to run
+#This is SO SLOW lol, there's got to be a smarter way to do this.
 
 primeList = [2]
 candidatePrime = 3
-sum = 0
+sum = 2 #start at two since we're not finding it, so needs to be added in to begin
 
 def is_prime(n):
     for i in range(2,n):
