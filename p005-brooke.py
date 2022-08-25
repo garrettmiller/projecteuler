@@ -26,6 +26,7 @@ def prime_factors(n):
 
 for x in range (1,21):
     #TODO - check all of this, how you mash lists together
+    #TODO - Need to fix code such that you add 2, you add 3, when it comes to 4, you already have one 2, so you only add a single other one, etc.
     for item in prime_factors(x):
         factorList.append(item)
 print(str(factorList))
