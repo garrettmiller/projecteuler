@@ -5,9 +5,8 @@
 #This is Brooke's prime factorization idea implemented
 
 #Prime factorization algorithm from Will Ness on Stack Overflow
-#TODO - debugging required, runs but doesn't give expected result.
 
-factorList = []
+finalList = []
 y = 1
 result = 1
 
@@ -24,14 +23,22 @@ def prime_factors(n):
         factors.append(n)
     return factors
 
-for x in range (1,21):
-    #TODO - check all of this, how you mash lists together
-    #TODO - Need to fix code such that you add 2, you add 3, when it comes to 4, you already have one 2, so you only add a single other one, etc.
-    for item in prime_factors(x):
-        factorList.append(item)
-print(str(factorList))
+for x in range (2,21):
+    #Solution should be such that you add 2 to list, you add 3 to list, when it comes to 4, you already have one 2, so you only add a single other one, etc.
+    #Start with an empty list.  Loop through 2-20, for each number, get prime factor list.  
+    #IF full list of prime factors ALREADY EXISTS in list, THEN continue
+    #ELSE add missing digits (Loop through prime factors - IF prime factor is in "master list", create new master list where that item is removed and continue)
+    tempList = prime_factors(x)
+    tempFactorList = finalList.copy()
+    print(f"Prime factors of {x} are {tempList}, finalList is {finalList} and tempFactorList is {tempFactorList}")
+    for factor in tempList:
+        if factor in tempFactorList:
+            tempFactorList.remove(factor)
+        else:
+            finalList.append(factor)
+print(str(finalList))
 
-for y in factorList:
+for y in finalList:
     result = result * y
 
 print(str(result))
