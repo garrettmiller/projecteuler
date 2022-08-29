@@ -3,13 +3,15 @@
 #Find the sum of all the primes below two million.
 
 #This is SO SLOW lol, there's got to be a smarter way to do this.
+#EDIT 8/29/2022 - apparently you only need to check as far as n^(1/2), made this go from about 1 hour to 10 seconds to run lol.
 
 primeList = [2]
 candidatePrime = 3
 sum = 2 #start at two since we're not finding it, so needs to be added in to begin
 
 def is_prime(n):
-    for i in range(2,n):
+    upper = int(n ** .5)+1 #Apparently you only need to check as far as n^(1/2)?  Wild.
+    for i in range(2,upper):
         if (n % i) == 0:
             return False
     return True
