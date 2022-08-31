@@ -16,9 +16,6 @@
 
 #We can see that 28 is the first triangle number to have over five divisors.
 #What is the value of the first triangle number to have over five hundred divisors?
-#TODO - fix this
-
-naturalList = []
 
 #function to find divisors from Martijn Pieters and Anivarth on Stack Overflow, modified by me for Python3
 def getDivisors(n):
@@ -29,10 +26,12 @@ def getDivisors(n):
     divisors.extend([n])
     return list(set(divisors))
 
-for i in range(1,999999999): #need to make this actually do triangle numbers
-    naturalList.append(i)
+for i in range(1,999999999):
+    naturalList = []
+    for y in range (1, i):
+        naturalList.append(y)
     if len(getDivisors(sum(naturalList))) > 500:
-        print(f"Number tested is: {i}, number of divisors is {len(getDivisors(sum(naturalList)))}, and list of divisors is {getDivisors(sum(naturalList))}")
+        print(f"Number tested is: {sum(naturalList)}, number of divisors is {len(getDivisors(sum(naturalList)))}")
         print()
         quit()
 
