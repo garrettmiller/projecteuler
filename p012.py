@@ -16,18 +16,24 @@
 
 #We can see that 28 is the first triangle number to have over five divisors.
 #What is the value of the first triangle number to have over five hundred divisors?
-#TODO - solve this
+#TODO - fix this
 
-#Prime factorization algorithm from Will Ness on Stack Overflow
-def prime_factors(n):
-    i = 2
-    factors = []
-    while i * i <= n:
-        if (n % i) != 0:
-            i = i + 1
-        else:
-            n //= i
-            factors.append(i)
-    if n > 1:
-        factors.append(n)
-    return factors
+naturalList = []
+
+#function to find divisors from Martijn Pieters and Anivarth on Stack Overflow, modified by me for Python3
+def getDivisors(n):
+    divisors = [1]
+    for i in range(2,int((n**.5))+1):
+        if n%i == 0:
+            divisors.extend([i,int(n/i)])
+    divisors.extend([n])
+    return list(set(divisors))
+
+for i in range(1,999999999): #need to make this actually do triangle numbers
+    naturalList.append(i)
+    if len(getDivisors(sum(naturalList))) > 500:
+        print(f"Number tested is: {i}, number of divisors is {len(getDivisors(sum(naturalList)))}, and list of divisors is {getDivisors(sum(naturalList))}")
+        print()
+        quit()
+
+
