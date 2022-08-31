@@ -57,7 +57,7 @@ biggestProduct = 0
 for i in range (0,20):
     x = 0
     while (x+3 < len(array[i,:])):
-        print(f"Array tested is {array[i,x:x+4]}" )
+        #print(f"Array tested is {array[i,x:x+4]}" )
         possibleProduct = numpy.prod(array[i,x:x+4])
         if possibleProduct > biggestProduct:
             biggestProduct = possibleProduct
@@ -68,7 +68,7 @@ for i in range (0,20):
 for i in range (0,20):
     y = 0
     while (y+3 < len(array[:,i])):
-        print(f"Array tested is {array[y:y+4,i]}" )
+        #print(f"Array tested is {array[y:y+4,i]}" )
         possibleProduct = numpy.prod(array[y:y+4,i])
         if possibleProduct > biggestProduct:
             biggestProduct = possibleProduct
@@ -78,10 +78,16 @@ for i in range (0,20):
 #Top-Left to Bottom-Right Diagonal Search
 #Start at row 17 on first one (16 zero-indexed)
 #and we can only do this 16 times per direction
-for i in range (16,0,-1):
+for i in range (0,20):
     z = 0
-
-
+    while (len(numpy.diag(array,z)) > 3):
+        print(f"Array tested is {numpy.diag(array[:4],z)}")
+        possibleProduct = numpy.prod(numpy.diag(array[:4],z))
+        print(f"PossibleProduct is {possibleProduct}")
+        if possibleProduct > biggestProduct:
+            biggestProduct = possibleProduct
+            print(f"New biggest product found!: {possibleProduct}")
+        z = z + 1
 
 
 print(f"Biggest product of contiguous terms is: {biggestProduct}")
