@@ -3,7 +3,7 @@
 #Find the sum of all the primes below two million.
 
 #This is SO SLOW lol, there's got to be a smarter way to do this.
-#EDIT 8/29/2022 - apparently you only need to check as far as n^(1/2), made this go from about 1 hour to 10 seconds to run lol.
+#Personal NOTE: 8/29/2022 - apparently you only need to check as far as n^(1/2), made this go from about 1 hour to 10 seconds to run lol.
 
 primeList = [2]
 candidatePrime = 3
