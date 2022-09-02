@@ -6,4 +6,15 @@
 
 #Find the sum of the digits in the number 100!
 
-#TODO - solve this
+num = 100
+factorial = 1
+sum = 0
+
+#We could use math.factorial() for this but wanted to do it natively
+for i in range (1, num+1):
+    factorial = factorial * i
+
+for i in str(factorial):
+    sum = sum + int(i)
+
+print(f"The sum of digits of 100! is: {sum}")
