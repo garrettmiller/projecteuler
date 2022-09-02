@@ -12,4 +12,23 @@
 #Which starting number, under one million, produces the longest chain?
 
 #NOTE: Once the chain starts the terms are allowed to go above one million.
-#TODO: Solve this
+
+#Personal NOTE: 9/2/2022 - nice, this one ran almost right off the bat written from scratch. Just one errant colon.
+
+workingNum = 0
+longestChain = 0
+
+for i in range(2,1000000):
+    currentChain = 0
+    workingNum = i
+    while (workingNum > 1):
+        if (workingNum % 2) == 0:
+            workingNum = workingNum/2
+            currentChain = currentChain + 1
+        else:
+            workingNum = (3*workingNum) + 1
+            currentChain = currentChain + 1
+    if currentChain > longestChain:
+        longestChain = currentChain
+        print(f"New longest chain found with term {i} and chain length {currentChain}")
+
