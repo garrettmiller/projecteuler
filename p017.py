@@ -6,5 +6,13 @@
 # NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-two) contains 23 letters and 115 (one hundred and fifteen) contains 20 letters. 
 # The use of "and" when writing out numbers is in compliance with British usage.
 
-# NOTE: 8/31/2022 - Consider using num2words for this
-#TODO - solve this
+import re
+from num2words import num2words
+
+sum = 0 
+for i in range(1,1001):
+    word = num2words(i)
+    word = re.sub('[^0-9a-zA-Z]+',"",word) #Strip off hyphens, spaces
+    sum = sum + len(word)
+
+print(f"The sum total of letters in numbers 1 to 1000 inclusive is: {sum}")
