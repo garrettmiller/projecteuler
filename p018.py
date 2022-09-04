@@ -29,31 +29,35 @@
 #NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route. 
 #However, Problem 67, is the same challenge with a triangle containing one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)
 
-#TODO - solve this
+triangle = [[75],
+[95, 64],
+[17, 47, 82],
+[18, 35, 87, 10],
+[20, 4, 82, 47, 65],
+[19, 1, 23, 75, 3, 34],
+[88, 2, 77, 73, 7, 63, 67],
+[99, 65, 4, 28, 6, 16, 70, 92],
+[41, 41, 26, 56, 83, 40, 80, 70, 33],
+[41, 48, 72, 33, 47, 32, 37, 16, 94, 29],
+[53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14],
+[70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
+[91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48],
+[63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
+[4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]]
 
-list = []
-list.append([75])
-list.append([95, 64])
-list.append([17, 47, 82])
-list.append([18, 35, 87, 10])
-list.append([20, 4, 82, 47, 65])
-list.append([19, 1, 23, 75, 3, 34])
-list.append([88, 2, 77, 73, 7, 63, 67])
-list.append([99, 65, 4, 28, 6, 16, 70, 92])
-list.append([41, 41, 26, 56, 83, 40, 80, 70, 33])
-list.append([41, 48, 72, 33, 47, 32, 37, 16, 94, 29])
-list.append([53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14])
-list.append([70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57])
-list.append([91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48])
-list.append([63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31])
-list.append([4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23])
+highestPath = 0
 
-sum = list[0][0] #Get starting number
-nextTerm = 0
+#After trying and failing to think through this a lot with Brooke, got some algorithmic help from hammar on StackOverflow.
+def all_paths(r,c):
+    current = triangle[r][c] #Get our starting point
+    if r < (len(triangle) - 1): #Use recursion if we're not at bottom row
+        lower_paths = all_paths(r+1, c) + all_paths((r+1),(c+1))
+        return [[current] + path for path in lower_paths]
+    else: #If we are, just return current value
+        return [[current]]
 
-for i in range(0,len(list)):
-    for x in range(0,len(list[i])):
-        if (list[i][x] > nextTerm):
-            nextTerm = list[i][x]
-    sum = sum + nextTerm
-print(sum)
+for path in all_paths(0,0):
+    if sum(path) > highestPath:
+        highestPath = sum(path)
+
+print(f"The highest-numbered path through the given triangle is: {highestPath}")
