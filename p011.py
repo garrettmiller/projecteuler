@@ -24,10 +24,8 @@
 
 #The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 #What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
-#TODO - solve this
 
 import numpy
-import time
 
 #Leading zeroes are not permitted
 array = numpy.array([[8, 2, 22, 97, 38, 15, 00, 40, 00, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
@@ -57,7 +55,6 @@ biggestProduct = 0
 for i in range (0,20):
     x = 0
     while (x+3 < len(array[i,:])):
-        #print(f"Array tested is {array[i,x:x+4]}" )
         possibleProduct = numpy.prod(array[i,x:x+4])
         if possibleProduct > biggestProduct:
             biggestProduct = possibleProduct
@@ -68,7 +65,6 @@ for i in range (0,20):
 for i in range (0,20):
     y = 0
     while (y+3 < len(array[:,i])):
-        #print(f"Array tested is {array[y:y+4,i]}" )
         possibleProduct = numpy.prod(array[y:y+4,i])
         if possibleProduct > biggestProduct:
             biggestProduct = possibleProduct
@@ -76,58 +72,24 @@ for i in range (0,20):
         y = y + 1
 
 #Top-Left to Bottom-Right Diagonal Search
-#Start at row 17 on first one (16 zero-indexed)
-#and we can only do this 16 times per direction
-for i in range (0,20):
+for i in range (0,20): 
     z = 0
     while (len(numpy.diag(array,z)) > 3):
-        print(f"Array tested is {numpy.diag(array[:4],z)}")
-        possibleProduct = numpy.prod(numpy.diag(array[:4],z))
-        print(f"PossibleProduct is {possibleProduct}")
+        possibleProduct = numpy.prod(array[i:,z:].diagonal()[:4]) #whew figuring out this indexing was tricky lol
         if possibleProduct > biggestProduct:
             biggestProduct = possibleProduct
             print(f"New biggest product found!: {possibleProduct}")
         z = z + 1
 
+#Top-Right to Bottom-Left Diagonal Search
+for i in range (20,0,-1): 
+    b = 0
+    while (len(numpy.fliplr(array[b:,:i]).diagonal()[:4]) > 3):
+        #print(f"Array tested is {numpy.fliplr(array[b:,:i]).diagonal()[:4]}") 
+        possibleProduct = numpy.prod(numpy.fliplr(array[b:,:i]).diagonal()[:4]) #fliplr gives us the anti-diagonal
+        if possibleProduct > biggestProduct:
+            biggestProduct = possibleProduct
+            print(f"New biggest product found!: {possibleProduct}")
+        b = b + 1
 
 print(f"Biggest product of contiguous terms is: {biggestProduct}")
-
-#Brooke's Notes
-
-## FOR NUMBER X1
-# HORIZONTAL
-# A: X, H_1, H_2, H_3
-# B: H_n1, X, H_1, H_2
-# C: H_n2, H_n1, X, H_1
-# D: H_n3, H_n2, H_n1, X
-
-# A vs B: Hn1 vs H_3 OR element B_1 vs A_4
-# C vs D: Hn3 vs H1 OR element D_1 vs C4
-# Then
-    # A vs C:  H_2 and H_3 vs Hn_2 and H_n1 or C1, C2 vs A3, A4
-    # A vs D: H_1, H_2, H_3 vs H_n1, H_n2, H_3, or C1, C2, C3 vs A2, A3, A4
-
-    # B vs C: B1 vs C4
-    # B vs D: B3, B4 vs D1, D2
-
-# then just check which is bigger winner(A, B) or winner (C, D)
-
-# General compare A, B, C, D function, which should always have the same logic. 
-# apply that to each horizontal, vertical, TlBR, TRBL sequence. Only loop over the inner M-4 x N-4 indices. Only ever keep max
-
-# HORIZONTAL
-# X, V_1, V_2, V_3
-# V_n1, X, V_1, V_2
-# V_n2, V_n1, X, V_1
-# V_n3, V_N2, V_N1, X
-
-# DIAGONAL Upper Left to Lower Right
-# X, H1V1, H2V2, H3V3
-# Hn1Vn1, X, H1V1, H2V2
-# Hn2Vn2, Hn1Vn1, X, H1V1
-# Hn3Vn3, Hn2Vn2, Hn1Vn1, X
-
-
-...
-
-
