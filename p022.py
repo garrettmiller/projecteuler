@@ -9,3 +9,25 @@
 
 #TODO - solve this
 
+import csv
+nameList = []
+bigSum = 0
+
+with open("p022_names.txt", 'r', newline='\n') as file:
+    csvreader = csv.reader(file, quoting=csv.QUOTE_ALL, delimiter=',')
+    for row in csvreader:
+        for name in row:
+            nameList.append(name)
+
+#make alphabetical
+nameList = sorted(nameList)
+
+for index, name in enumerate(nameList, start=1):
+    nameScore = 0
+    nameSum = 0
+    print(f"Name index {index} is {name}")
+    for character in name:
+
+        nameScore = nameSum * index
+    bigSum = bigSum + nameScore
+#print(nameList)
