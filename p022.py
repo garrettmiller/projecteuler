@@ -7,9 +7,9 @@
 
 #What is the total of all the name scores in the file?
 
-#TODO - solve this
-
 import csv
+import string 
+
 nameList = []
 bigSum = 0
 
@@ -22,12 +22,13 @@ with open("p022_names.txt", 'r', newline='\n') as file:
 #make alphabetical
 nameList = sorted(nameList)
 
+#use enumerate function to get our index in list
 for index, name in enumerate(nameList, start=1):
     nameScore = 0
     nameSum = 0
-    print(f"Name index {index} is {name}")
     for character in name:
-
-        nameScore = nameSum * index
+        nameSum = nameSum + (string.ascii_uppercase.index(character)+1)
+    nameScore = nameSum * index
     bigSum = bigSum + nameScore
-#print(nameList)
+    
+print(f"Sum of namescores is: {bigSum}")
