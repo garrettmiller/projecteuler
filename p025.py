@@ -22,3 +22,12 @@
 #What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
 
 #TODO - Solve this
+
+fibonacciList = [1,2]
+nextFibonacci = 0
+
+while (len(str(nextFibonacci)) < 1000):
+    nextFibonacci = sum(fibonacciList[-2:])
+    fibonacciList.append(nextFibonacci)
+
+print(f"The index of first Fibonacci number with 1000 digits is {len(fibonacciList) + 1}, and it is {fibonacciList[-1]}")
