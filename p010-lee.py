@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 #Dr. Lee Ricketson's solution to p010 - much much faster than mine.
-#TODO - not producing expected result at 2,000,000 on Windows 11, but seems ok at 200,000.
-#Try to determine if platform weirdness, or a bug. 
 
 import numpy as np
 import time
 
-#TODO - check 
 max_num = 2000000
 start = time.time() 
-numbers = np.arange(max_num+1) # Every number from one to max_num
+# Every number from one to max_num. 
+# NOTE@garrettmiller - 09/Sept/2022 - added datatype to prevent overflow condition from returning incorrect result on Windows. 
+numbers = np.arange(max_num+1, dtype='int64')
 
 is_prime = np.ones_like(numbers) # Start by assuming everything is prime... when we determine a number isn't prime, we'll put zero in the corresponding entry in this array
 
