@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 #Dr. Lee Ricketson's solution to p010 - much much faster than mine.
-#TODO - not producing expected result, check in with Lee
+#TODO - not producing expected result at 2,000,000 on Windows 11, but seems ok at 200,000.
+#Try to determine if platform weirdness, or a bug. 
 
 import numpy as np
 import time
 
+#TODO - check 
 max_num = 2000000
 start = time.time() 
 numbers = np.arange(max_num+1) # Every number from one to max_num
@@ -20,8 +22,10 @@ for n in range(2,max_num+1):
         is_prime[n] = 1 # The above line will have made is_prime[n] = 0, so reset it to one here
 
 # print(numbers*is_prime) # Uncomment this (and probably shrink max_num by a lot) to check if we're identifying primes correctly
-
-print(np.sum(numbers*is_prime)) # numbers*is_prime has zero in place of all the composite numbers, so summing all the entries gives the sum of the primes
+print(numbers)
+print(is_prime)
+sum = numbers*is_prime
+print(np.sum(sum)) # numbers*is_prime has zero in place of all the composite numbers, so summing all the entries gives the sum of the primes
 
 end = time.time() 
 
