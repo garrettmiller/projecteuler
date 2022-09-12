@@ -19,8 +19,6 @@
 #Find the product of the coefficients, a and b, for the quadratic expression that produces the 
 #maximum number of primes for consecutive values of n, starting with n=0.
 
-#TODO - solve this
-
 maxPrimes = 0
 candidatePrime = 0
 bestA = 0
