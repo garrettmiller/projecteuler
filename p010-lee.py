@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-#Lee Ricketson's solution to p010 - much much faster than mine.
+#Dr. Lee Ricketson's solution to p010 - much much faster than mine.
+#TODO - not producing expected result, check in with Lee
+
 import numpy as np
 import time
 
