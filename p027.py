@@ -20,3 +20,34 @@
 #maximum number of primes for consecutive values of n, starting with n=0.
 
 #TODO - solve this
+
+maxPrimes = 0
+candidatePrime = 0
+bestA = 0
+bestB = 0
+bestN = 0
+
+def isPrime(n):
+    upper = int(n ** .5)+1 #Apparently you only need to check as far as n^(1/2)?  Wild.
+    for i in range(2,upper):
+        if (n % i) == 0:
+            return False
+    return True
+
+for a in range(-1000,1000):
+    for b in range(-1000,1001):
+        primeList = []
+        for n in range(0,1001):
+            checkValue = ((n**2)+(a*n)+b)
+            if checkValue > 0 and isPrime(checkValue):
+                primeList.append(checkValue)
+            else:
+                if len(primeList) > maxPrimes:
+                    maxPrimes = len(primeList)
+                    bestA = a
+                    bestB = b
+                    bestN = n
+                break
+
+print(f"Longest chain of primes was found with a = {bestA}, b = {bestB}, n = {bestN}, and prime chain length {maxPrimes}.")
+print(f"Product of {bestA} and {bestB} is: {bestA * bestB}")
