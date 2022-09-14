@@ -1,3 +1,2 @@
 numpy
 num2words
-itertools
