@@ -6,63 +6,43 @@
 
 #How many circular primes are there below one million?
 
-#NOTE - super slow, I'm sure there's smarter ways to speed this up
-#TODO - fix
+#NOTE - super slow, I'm sure there's smarter ways to speed this up, would like to try faster prime finding techniques.
+#NOTE - finally fixed 9/15/2022, I was using permutations and not rotations, which caused the "number families" to be composite way too often.
 
-#Prime family: [2]
-#Prime family: [3]
-#Prime family: [5]
-#Prime family: [7]
-#Prime family: [11]
-#Prime family: [13, 31]
-#Prime family: [17, 71]
-#Prime family: [37, 73]
-#Prime family: [79, 97]
-#Prime family: [113, 131, 311]
-#Prime family: [197, 971, 719]
-#Prime family: [199, 991, 919]
-#Prime family: [337, 373, 733]
-#Prime family: [1193, 1931, 9311, 3119]
-#Prime family: [3779, 7793, 7937, 9377]
-#Prime family: [11939, 19391, 93911, 39119, 91193]
-#Prime family: [19937, 99371, 93719, 37199, 71993]
-#Prime family: [193939, 939391, 393919, 939193, 391939, 919393]
-#Prime family: [199933, 999331, 993319, 933199, 331999, 319993]
-
-import itertools
-import math #import math for speed
+import numpy #For rotation
 
 def is_prime(n):
-    upper = int(math.sqrt(n))+1
+    upper = int(n**.5)+1
     for i in range(2,upper):
         if (n % i) == 0:
             return False
     return True
 
-limit=1000
-circularPrimeCount = 1 #We're skipping 2 so start this at 1
-listOfRotations = []
+LIMIT=1000000
+circularPrimeCount = 1 #We're skipping 2 so start this at 1 to account for it
 compositeFlag = False
 
-for i in range(3,limit,2): #no need to check evens
-    print(f"Testing permutations of {i}, and have found {circularPrimeCount} circular primes so far...")
-    digitList = []
+for i in range(3,LIMIT,2): #no need to check evens
     listOfRotations = []
     compositeFlag = False
-    #Build a list that we can permute
+    numList = []
+    rotationList = []
+    #Get all permutations of the number at that length
+    #EDIT 9/15/2022 - ROTATIONS, not permutations.  That's why this took so long and why it worked sub-100.
     for digit in str(i):
-        digitList.append(digit)
+        numList.append(digit)
+    
+    #Now that we have a list containing our integer, get all rotations and add that to another list
+    for x in range(0,len(numList)):
+        rotationList.append(numpy.roll(numList,x))
 
-    #Get all permutations of that list
-    permutationList = list(itertools.permutations(digitList))
-
-    #Then for each set of numbers in that permutationList,  
-    for number in permutationList:
+    #Then for each set of numbers in that rotationList,  
+    for number in rotationList:
         #reassemble it into an int
         thisNumber = int("".join(number))
         #and throw it into a current list of rotations
         listOfRotations.append(thisNumber)
-        #Check each one in that list to determine if each are prime, initializing a flag value
+        #Check each one in that list to determine if each are prime, using a flag value
         for candidatePrime in listOfRotations:
             if is_prime(candidatePrime) == False:
                 compositeFlag = True
@@ -71,5 +51,6 @@ for i in range(3,limit,2): #no need to check evens
                 continue
     if compositeFlag == False:
         circularPrimeCount = circularPrimeCount + 1
-    
-print(f"The number of circular primes below {limit} is: {circularPrimeCount}")
+        print(f"Testing rotations of {i}, which are {listOfRotations} and have found {circularPrimeCount} circular primes so far...")
+
+print(f"The number of circular primes below {LIMIT} is: {circularPrimeCount}.")
