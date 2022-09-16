@@ -25,6 +25,9 @@ for numerator in range(10,100):
                 #Make sure an element in numerator matches denominator:
                 for numeratorDigit in str(numerator):
                     if numeratorDigit in str(denominator):
+
+                        #NEED TO FIX THIS - Fraction with common element removed should be equal to same reduced fraction
+
                         #And see if our fraction with similar elements and no zeroes reduces:
                         reduced = Fraction(numerator, denominator)
                         if(str(f"{numerator}/{denominator}") != str(reduced)):
