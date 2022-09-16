@@ -9,4 +9,24 @@
 
 #HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
 
-#TODO - Solve this 
+pandigitalProducts = []
+for i in range(1,1001):
+    for x in range(1,10001):
+        digitList = []
+        pandigitalFlag = False
+        product = i*x
+        #Roll everything into a list
+        for digit in str(i):
+            digitList.append(digit)
+        for digit in str(x):
+            digitList.append(digit)
+        for digit in str(product):
+            digitList.append(digit)
+        #Only continue testing if we're exactly 9 digits long (1-9)
+        if len(digitList) == 9:
+            #See if we're all unique numbers (1-9) by comparing length against set() length, and make sure there's no 0 since we're doing 1-9 only. 
+            if (len(set(digitList)) == len(digitList)) and '0' not in digitList:
+                pandigitalProducts.append(product)
+                print(f"Pandigital identity found: {i} x {x} = {product}")
+
+print(f"The sum of all products whose multiplicand, multiplier, and product are 1-9 pandigital is: {sum(set(pandigitalProducts))}.")
