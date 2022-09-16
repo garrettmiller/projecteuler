@@ -9,4 +9,21 @@
 
 #If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
 
-#TODO - Solve this 
+#TODO - Fix this 
+
+from fractions import Fraction
+
+counter = 0
+for numerator in range(10,100):
+    for denominator in range(10,100):
+        #Make sure we're going to be less than 1
+        if denominator > numerator:
+            #Make sure there's no zeroes to get rid of "trivial examples"
+            if "0" not in (str(numerator)) and "0" not in (str(denominator)): 
+                #Make sure an element in numerator matches denominator:
+                for numeratorDigit in str(numerator):
+                    if numeratorDigit in str(denominator):
+                        #And see if our fraction with similar elements and no zeroes reduces:
+                        if(str(f"{numerator}/{denominator}") != str(Fraction(numerator, denominator))):
+                            counter += 1
+                            print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}, index {counter}")
