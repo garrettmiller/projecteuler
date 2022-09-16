@@ -12,8 +12,10 @@
 #TODO - Fix this 
 
 from fractions import Fraction
+import numpy
 
 counter = 0
+denominatorList = []
 for numerator in range(10,100):
     for denominator in range(10,100):
         #Make sure we're going to be less than 1
@@ -24,6 +26,15 @@ for numerator in range(10,100):
                 for numeratorDigit in str(numerator):
                     if numeratorDigit in str(denominator):
                         #And see if our fraction with similar elements and no zeroes reduces:
-                        if(str(f"{numerator}/{denominator}") != str(Fraction(numerator, denominator))):
-                            counter += 1
-                            print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}, index {counter}")
+                        reduced = Fraction(numerator, denominator)
+                        if(str(f"{numerator}/{denominator}") != str(reduced)):
+                            #If it did reduce, make sure that there are no longer any common elements:
+                                for digit in str(reduced.numerator):
+                                    if digit in str(reduced.denominator):
+                                        break
+                                    else:
+                                        counter += 1
+                                        print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}, index {counter}")
+                                        denominatorList.append(denominator)
+
+print(f"The denominator of the product of the discovered fractions is: {denominatorList}, {numpy.prod(denominatorList)}")
