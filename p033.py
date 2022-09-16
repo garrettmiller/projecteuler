@@ -9,13 +9,12 @@
 
 #If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
 
-#TODO - Fix this 
+#TODO - Fix this - returning correct product/answer, but not sure fraction logic is right yet since problem example (49/98) doesn't show up
 
 from fractions import Fraction
 import numpy
 
-counter = 0
-denominatorList = []
+resultList = []
 for numerator in range(10,100):
     for denominator in range(10,100):
         #Make sure we're going to be less than 1
@@ -25,22 +24,19 @@ for numerator in range(10,100):
                 #Make sure an element in numerator matches denominator:
                 for numeratorDigit in str(numerator):
                     if numeratorDigit in str(denominator):
+                        #Find any common elements between the two operands
+                        commonElement = list(set(str(numerator)) & set(str(denominator)))
+                        #and if there's exactly one common element, remove it from each:
+                        if len(commonElement) == 1:
+                            numeratorList = list(str(numerator))
+                            denominatorList = list(str(denominator))
+                            numeratorList.remove(commonElement[0])
+                            denominatorList.remove(commonElement[0])
+                        
+                            #Then the reduced fractions should be equivalent
+                            reduced = Fraction(numerator, denominator)
+                            if str(reduced) == str(f"{numeratorList[0]}/{denominatorList[0]}"):
+                                print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}")
+                                resultList.append(int(denominatorList[0]))
 
-                        #NEED TO FIX THIS - Fraction with common element removed should be equal to same reduced fraction
-
-                        #And see if our fraction with similar elements and no zeroes reduces:
-                        reduced = Fraction(numerator, denominator)
-                        if(str(f"{numerator}/{denominator}") != str(reduced)):
-                            #Make sure the reduced fraction only has length of 1 for numerator/denominator:
-                            if reduced.numerator < 10 and reduced.denominator < 10:
-                                #If it did reduce, make sure that there are no longer any common elements:
-                                for digit in str(reduced.numerator):
-                                    if digit in str(reduced.denominator):
-                                        break
-                                    else:
-                                        counter += 1
-                                        print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}, index {counter}")
-                                        denominatorList.append(denominator)
-
-#I believe we're currently overflowing here, hence why product is 0
-print(f"The denominator of the product of the discovered fractions is: {denominatorList}, {numpy.prod(denominatorList)}")
+print(f"The denominator of the product of the discovered fractions is: {resultList}, {numpy.prod(resultList)}")
