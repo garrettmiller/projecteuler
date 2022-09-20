@@ -16,27 +16,26 @@ import numpy
 
 resultList = []
 for numerator in range(10,100):
-    for denominator in range(10,100):
+    for denominator in range(numerator,100):
         #Make sure we're going to be less than 1
         if denominator > numerator:
             #Make sure there's no zeroes to get rid of "trivial examples"
             if "0" not in (str(numerator)) and "0" not in (str(denominator)): 
-                #Make sure an element in numerator matches denominator:
-                for numeratorDigit in str(numerator):
-                    if numeratorDigit in str(denominator):
-                        #Find any common elements between the two operands
-                        commonElement = list(set(str(numerator)) & set(str(denominator)))
-                        #and if there's exactly one common element, remove it from each:
-                        if len(commonElement) == 1:
-                            numeratorList = list(str(numerator))
-                            denominatorList = list(str(denominator))
-                            numeratorList.remove(commonElement[0])
-                            denominatorList.remove(commonElement[0])
+                #Find any common elements between the two operands
+                commonElement = list(set(str(numerator)) & set(str(denominator)))
+                    
+                #and if there's exactly one common element, remove it from each:
+                if len(commonElement) == 1:
+                    numeratorList = list(str(numerator))
+                    denominatorList = list(str(denominator))
+                    numeratorList.remove(commonElement[0])
+                    denominatorList.remove(commonElement[0])
                         
-                            #Then the reduced fractions should be equivalent
-                            reduced = Fraction(numerator, denominator)
-                            if str(reduced) == str(f"{numeratorList[0]}/{denominatorList[0]}"):
-                                print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}")
-                                resultList.append(int(denominatorList[0]))
+                    #Then the reduced fractions should be equivalent
+                    reduced = Fraction(numerator, denominator)
+                    reducedAfterRemoval = Fraction(int(numeratorList[0])/int(denominatorList[0]))
+                    if reduced == reducedAfterRemoval:
+                        print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}")
+                        resultList.append(int(denominatorList[0]))
 
-print(f"The denominator of the product of the discovered fractions is: {resultList}, {numpy.prod(resultList)}")
+print(f"The denominators of the discovered fractions is: {resultList}, product is: {numpy.prod(resultList)}")
