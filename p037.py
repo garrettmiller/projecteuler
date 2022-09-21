@@ -7,11 +7,11 @@
 
 #NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 
-#TODO - fix this, prime set should be [23, 37, 53, 73, 313, 317, 373, 797, 3137, 3797, 739397]
-#I'm currently getting [23, 31, 37, 53, 71, 73, 113, 131, 137, 173, 197, 311, 313, 317, 373, 797, 1373, 1997, 3137, 3797, 7331, 73331, 739397]
 
 def is_prime(n):
     upper = int(n**.5)+1
+    if n == 1: #Fixed 9/21/2022 - needed to correctly handle 1, which is not prime
+        return False
     for i in range(2,upper):
         if (n % i) == 0:
             return False
@@ -24,7 +24,7 @@ for i in range(21,1000000,2):
     numString = str(i)
     if is_prime(i):
         for x in range((len(numString)),1,-1):
-            print(f"Testing {numString}, and substrings {numString[:x-1]} and {numString[((x-1)*-1):]}")
+            #print(f"Testing {numString}, and substrings {numString[:x-1]} and {numString[((x-1)*-1):]}")
             if (is_prime(int(numString[:x-1])) == False) or (is_prime(int(numString[((x-1)*-1):])) == False):
                 compositeFlag = True
                 break
@@ -34,13 +34,4 @@ for i in range(21,1000000,2):
             print(f"TRUNCATABLE PRIME FOUND: {numString}")
             truncatablePrimeList.append(i)
 
-#Doing some validation here, passing
-for prime in truncatablePrimeList:
-    if is_prime(prime) == False:
-        print("error detected")
-
-#for prime in truncatablePrimeList:
-#    checkString = str(prime)
-
-            
 print(f"The list of truncatable primes is {truncatablePrimeList} and sum of truncatable primes is: {sum(truncatablePrimeList)}")
