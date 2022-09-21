@@ -5,7 +5,6 @@
 
 possibleDrome = 0
 dromeList = []
-x = 1
 
 for i in range(1, 1000):
     for n in range(1, 1000):
@@ -13,7 +12,6 @@ for i in range(1, 1000):
         stringDrome = str(possibleDrome)
         if stringDrome == stringDrome[::-1]: #neat little trick to reverse a string
             print("Palindrome Found: " + stringDrome)
-            x = x + 1
             dromeList.append(possibleDrome)
     
 print(str(sorted(set(dromeList))))
