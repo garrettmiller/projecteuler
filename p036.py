@@ -5,8 +5,6 @@
 
 #(Please note that the palindromic number, in either base, may not include leading zeros.)
 
-#TODO - solve this
-
 dromeList = []
 
 for i in range(1, 1000000):
