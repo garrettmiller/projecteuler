@@ -9,12 +9,13 @@
 
 #If the product of these four fractions is given in its lowest common terms, find the value of the denominator.
 
-#TODO - Fix this - returning correct product/answer, but not sure fraction logic is right yet since problem example (49/98) doesn't show up
+#NOTE - Fixed 9/21/2022 - had to add limit_denominator() to Fractions calls to deal with weird floating point situations causing comparisons to fail
 
 from fractions import Fraction
 import numpy
 
-resultList = []
+resultNumeratorList = []
+resultDenominatorList = []
 for numerator in range(10,100):
     for denominator in range(numerator,100):
         #Make sure we're going to be less than 1
@@ -30,12 +31,14 @@ for numerator in range(10,100):
                     denominatorList = list(str(denominator))
                     numeratorList.remove(commonElement[0])
                     denominatorList.remove(commonElement[0])
-                        
-                    #Then the reduced fractions should be equivalent
-                    reduced = Fraction(numerator, denominator)
-                    reducedAfterRemoval = Fraction(int(numeratorList[0])/int(denominatorList[0]))
-                    if reduced == reducedAfterRemoval:
-                        print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator)}")
-                        resultList.append(int(denominatorList[0]))
 
-print(f"The denominators of the discovered fractions is: {resultList}, product is: {numpy.prod(resultList)}")
+                    #Then the reduced fractions should be equivalent
+                    reduced = Fraction(numerator, denominator).limit_denominator()
+                    reducedAfterRemoval = Fraction(int(numeratorList[0])/int(denominatorList[0])).limit_denominator()
+                    if reduced == reducedAfterRemoval:
+                        print(f"Original Fraction: {numerator}/{denominator}, reduces to {Fraction(numerator, denominator).limit_denominator()}")
+                        resultNumeratorList.append(Fraction(numerator, denominator).limit_denominator().numerator)
+                        resultDenominatorList.append(Fraction(numerator, denominator).limit_denominator().denominator)
+
+print(f"The numerators of the discovered fractions are: {resultNumeratorList}, denominators are {resultDenominatorList} product is: {Fraction(numpy.prod(resultNumeratorList),numpy.prod(resultDenominatorList))}")
+print(f"So denominator in its lowest common terms would be: {Fraction(numpy.prod(resultNumeratorList),numpy.prod(resultDenominatorList)).denominator}")
