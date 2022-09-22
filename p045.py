@@ -9,4 +9,27 @@
 
 #Find the next triangle number that is also pentagonal and hexagonal.
 
-#TODO - Solve this
+#NOTE - there's gotta be smarter ways to do this than just building these massive lists and looking them up but once again, eh.
+#Coded this in under 5 minutes.  Humans are expensive, computers are cheap.
+
+triangleList = []
+pentagonList = []
+hexagonList = []
+
+#Build a list of triangular numbers
+for n in range(1,100000):
+    triangleList.append(int(n*((n+1))/2))
+
+#Build a list of pentagonal numbers
+for n in range(1,100000):
+    pentagonList.append(int(n*((3*n)-1)/2))
+
+#Build a list of hexagonal numbers
+for n in range(1,100000):
+    hexagonList.append(int(n*((2*n-1))))
+
+for triangle in triangleList:
+    #See if it's in both other lists, also ignore 1 and our problem example
+    if triangle in pentagonList and triangle in hexagonList and triangle != 1 and triangle != 40755:
+        print(f"The next triangle number that's also pentagonal and hexagonal is: {triangle}")
+        quit()
