@@ -7,4 +7,22 @@
 
 #Find the pair of pentagonal numbers, Pj and Pk, for which their sum and difference are pentagonal and D = |Pk − Pj| is minimised; what is the value of D?
 
-#TODO - Solve this
+#NOTE - really slow, but returning the right result
+
+pentagonList = []
+existingD = 999999999999 #Arbitrarily large number which most of our distances should be less than
+
+#Build a list of pentagonal numbers
+for n in range(1,10000):
+    pentagonList.append(int(n*((3*n)-1)/2))
+
+for pj in pentagonList:
+    for pk in pentagonList:
+        if (pj + pk) in pentagonList:
+            d = abs(pk - pj)
+            if d in pentagonList:
+                if d < existingD:
+                    print(f"New smallest D found between {pj} and {pk}, with difference {d}")
+                    existingD = d
+
+print(f"Smallest D between two pentagonal numbers who also have pentagonal sum/difference is: {existingD}")
