@@ -28,8 +28,7 @@ with open("p042_words.txt", 'r', newline='\n') as file:
 for n in range(1,1000):
     triangleList.append(0.5*(n*(n+1)))
 
-#Then iterate through the wordlist to see if the value is in 
-
+#Then iterate through the wordlist to see if the value is in it
 for word in wordList:
     wordSum = 0
     for character in word:
