@@ -13,4 +13,23 @@
 
 #Find the sum of all 0 to 9 pandigital numbers with this property.
 
-#TODO - Solve this
+from itertools import permutations
+
+resultList = []
+#Create a list of all pandigital numbers
+stringNums = "0123456789"
+permutationList = list(permutations(stringNums))
+
+for permutation in permutationList:
+    thisNumber = str("".join(permutation))
+    if (int(thisNumber[1:4]) % 2 == 0 
+    and int(thisNumber[2:5]) % 3 == 0
+    and int(thisNumber[3:6]) % 5 == 0
+    and int(thisNumber[4:7]) % 7 == 0
+    and int(thisNumber[5:8]) % 11 == 0
+    and int(thisNumber[6:9]) % 13 == 0
+    and int(thisNumber[7:10]) % 17 == 0):
+        print(f"Interesting number found: {thisNumber}")
+        resultList.append(int(thisNumber))
+
+print(f"The sum of these interesting numbers is: {sum(resultList)}")
