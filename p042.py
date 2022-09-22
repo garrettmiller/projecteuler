@@ -9,8 +9,6 @@
 
 #Using a 16K text file containing nearly two-thousand common English words, how many are triangle words?
 
-#TODO - Solve this
-
 import csv
 import string 
 
