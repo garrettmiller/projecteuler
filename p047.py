@@ -12,8 +12,6 @@
 
 #Find the first four consecutive integers to have four distinct prime factors each. What is the first of these numbers?
 
-#TODO - Fix this, incomplete
-
 #Prime factorization algorithm from Will Ness on Stack Overflow
 def prime_factors(n):
     i = 2
