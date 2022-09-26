@@ -28,8 +28,20 @@ def prime_factors(n):
         factors.append(n)
     return factors
 
-for i in range(1,100000):
+for i in range(1,1000000):
+    consecutiveCounter = 0
     factorList = prime_factors(i)
     if len(set(factorList)) == 4:
-        print(f"The first four consecutive integers to have four prime factors are: {str(i)}")
-        quit()
+        consecutiveCounter = consecutiveCounter +1
+        #Now check to see if three more consecutive have four prime factors:
+        for n in range(i+1,i+4):
+            factorList = prime_factors(n)
+            if len(set(factorList)) == 4:
+                consecutiveCounter = consecutiveCounter + 1
+                continue
+            else:
+                break
+
+    if consecutiveCounter == 4:
+        print(f"The first of the first four consecutive integers to have four prime factors is: {str(i)}")
+        quit()           
