@@ -7,3 +7,17 @@
 #What 12-digit number do you form by concatenating the three terms in this sequence?
 
 #TODO - solve this
+
+from itertools import permutations
+
+def is_prime(n):
+    upper = int(n**.5)+1
+    for i in range(2,upper):
+        if (n % i) == 0:
+            return False
+    return True
+
+for i in range(1000,10000):
+    termList = []
+    permutationList = list(permutations(stringNums))
+    i = 
