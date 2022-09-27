@@ -9,8 +9,6 @@
 
 #Which prime, below one-million, can be written as the sum of the most consecutive primes?
 
-#TODO - Fix this, it's currently not accounting for situations where we don't begin at 2
-
 def is_prime(n):
     upper = int(n**.5)+1
     for i in range(2,upper):
@@ -20,19 +18,25 @@ def is_prime(n):
 
 #Start with 2, 3 so we don't have to find them
 primeList = [2,3]
+resultPrime = 0 
+highestPrimeCount = 0 
 
 #Build a list of primes
 for i in range(5,1000000,2):
     if is_prime(i):
         primeList.append(i)
 
-for prime in primeList:
-    total = 0
-    primeCount = 0
-    for otherPrime in primeList:
-        total = total + otherPrime
-        primeCount = primeCount + 1
-        if total == prime:
-            print(f"Prime found as sum of consecutive primes: {str(prime)}, with number of primes {str(primeCount)}")
-        elif total > prime:
-            break
+#Need to account for situations where we don't start at beginning of primelist
+for i in range(1,len(primeList)):
+    for prime in primeList[i:]:
+        total = 0
+        primeCount = 0
+        for otherPrime in primeList[i:]:
+            total = total + otherPrime
+            primeCount = primeCount + 1
+            if total > prime:
+                break
+            elif total == prime and primeCount > highestPrimeCount:
+                print(f"Prime found as sum of consecutive primes: {prime}, with number of primes {primeCount}, found beginning at {primeList[i]}, index {i}")
+                highestPrimeCount = primeCount
+                resultPrime = prime
