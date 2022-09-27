@@ -17,7 +17,7 @@ def is_prime(n):
             return False
     return True
 
-for i in range(1,10000):
+for i in range(1000,10000):
     #This feels messy but seems to be the best way I know to get all permutations of an int
     listOfPermutations = []
     permutationList = list(permutations(str(i)))
@@ -37,9 +37,14 @@ for i in range(1,10000):
         termList.append(i)
         termList.append(i+n)
         termList.append(i+(2*n))
-        #print(f"TermList is {termList}, and permutations are {listOfPermutations}")
+        print(f"TermList is {termList}, and permutations are {listOfPermutations}")
         for term in termList:
-            if term not in listOfPermutations or is_prime(term) == False:
+            if term not in listOfPermutations:
+                print(f"{term} is not in {listOfPermutations}!")
+                flag = False
+                break 
+            if is_prime(term) == False:
+                print(f"{term} is not prime!")
                 flag = False
                 break
             else:
