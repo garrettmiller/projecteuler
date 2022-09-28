@@ -6,8 +6,6 @@
 
 #What 12-digit number do you form by concatenating the three terms in this sequence?
 
-#TODO - fix this
-
 from itertools import permutations
 
 def is_prime(n):
@@ -19,28 +17,27 @@ def is_prime(n):
 
 primeList = []
 
-#Build a list of primes
+#Build a list of primes to test
 for i in range(1001,10000,2):
     if is_prime(i):
         primeList.append(i)
 
-#Let's just test primes for speed
 for prime in primeList:
-    #This will track if we found a valid solution or not
-    flag = True
-    
     #This feels messy but seems to be the best way I know to get all permutations of an int
     listOfPermutations = []
-    permutationList = set(permutations(str(prime)))
+    permutationSet = set(permutations(str(prime)))
     #Then for each set of numbers in that permutationList,  
-    for number in permutationList:
+    for number in permutationSet:
         #reassemble it into an int
         thisNumber = int("".join(number))
         #and throw it into a current list of permutations if it's 4 digits
         if len(str(thisNumber)) == 4:
             listOfPermutations.append(thisNumber)
-    #Then let's increment by an increasing amount             
+
+    #Then let's increment each prime by an increasing amount             
     for n in range(1,5000):
+        #This will track if we found a valid solution or not
+        flag = True
         #Break if we get too high for efficiency
         if (prime+(2*n)) > 9999:
             break
@@ -48,18 +45,19 @@ for prime in primeList:
         termList.append(prime)
         termList.append(prime+n)
         termList.append(prime+(2*n))
-        #print(f"TermList is {termList}, and permutations are {listOfPermutations}")
         for term in termList:
             if term not in listOfPermutations:
-                #print(f"{term} is not in {listOfPermutations}!")
                 flag = False
                 break 
             if is_prime(term) == False:
-                #print(f"{term} is not prime!")
                 flag = False
                 break
-            #else:
-                #print(f"Continuing with prime {prime} and n {n} and termList {termList}...")
-        if flag == True:
+        #Check our success condition, making sure it's not the problem example 
+        if flag == True and 1487 not in termList:
             print(f"Sequence found: {termList}")
-            quit()
+            stringNum = ""
+            for term in termList:
+                stringNum = stringNum + str(term)
+
+print("The number made up of increasing concatenated permutations of a prime which is not the problem example is:")
+print(stringNum)
