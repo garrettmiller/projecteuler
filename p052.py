@@ -4,8 +4,6 @@
 
 #Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits.
 
-#TODO - fix this, currently not returning a result
-
 from itertools import permutations
 
 for i in range(1,1000000):
