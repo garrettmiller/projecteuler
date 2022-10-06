@@ -17,8 +17,9 @@ for i in range(1,1000000):
         thisNumber = int("".join(number))
         #and throw it into a current list of permutations
         listOfPermutations.append(thisNumber)
-    print(f"Now testing i {i} and list {listOfPermutations}")
-    if str(2*i) in listOfPermutations and str(3*i) in listOfPermutations and str(4*i) in listOfPermutations and str(5*i) in listOfPermutations and str(6*i) in listOfPermutations:
+    listOfPermutations = set(listOfPermutations)
+    #print(f"Now testing i {i} and list {listOfPermutations}")
+    if 2*i in listOfPermutations and 3*i in listOfPermutations and 4*i in listOfPermutations and 5*i in listOfPermutations and 6*i in listOfPermutations:
         print("Result found for x, such that x, 2x, 3x, 4x, 5x, 6x all contain the same digits:",i,2*i,3*i,4*i,5*i,6*i)
         #Quit after smallest value found
         quit()
