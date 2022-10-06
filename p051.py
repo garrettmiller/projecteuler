@@ -8,4 +8,51 @@
 
 #Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits) with the same digit, is part of an eight prime value family.
 
-#TODO - solve this
+def is_prime(n):
+    upper = int(n**.5)+1
+    for i in range(2,upper):
+        if (n % i) == 0:
+            return False
+    return True
+
+#Start with 2, 3 so we don't have to find them
+primeList = [2,3]
+
+#Build a list of primes
+for i in range(5,1000000,2):
+    if is_prime(i):
+        primeList.append(i)
+
+#Function to create wildcard strings from Obed Tandadjaja on Medium
+def genWildcardStrings(s, index):
+    if index > 0:
+        wildcards.append(s)
+    for x in range(index, len(s)):
+        genWildcardStrings(createPlaceholder(s,x), x+1)
+
+#Function to replace a character with asterisks from Obed Tandadjaja on Medium
+def createPlaceholder(s, index):
+    return s[0:index] + '*' + s[index+1:]
+
+#Go through each prime in the list
+for x in range(0, len(primeList)):
+    wildcards = []
+    #Generate all possible wildcards for a given prime
+    genWildcardStrings(str(primeList[x]),0)
+    #Then loop through all possible wildcard strings
+    for y in range(1, len(wildcards)):
+        primeCount = 0 
+
+        #Replace asterisks with 0-9
+        for z in range(0,10):
+            thisNumber = int(wildcards[y].replace('*', str(z)))
+            #Make sure the number isn't reduceable - that it doesn't start with 0
+            if len(str(thisNumber)) < len(str(wildcards[y])):
+                continue
+            if is_prime(thisNumber) == True:
+                primeCount = primeCount + 1
+        
+        #Once count is greater than 8, print and exit
+        if primeCount >= 8:
+            print(f"Starting prime is: {primeList[x]}, wildcard digits are {wildcards[y]}.")
+            exit(0)
