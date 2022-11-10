@@ -8,6 +8,8 @@
 
 #Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits) with the same digit, is part of an eight prime value family.
 
+#TODO - fix this
+
 def is_prime(n):
     upper = int(n**.5)+1
     for i in range(2,upper):
