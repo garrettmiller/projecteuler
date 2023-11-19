@@ -18,7 +18,6 @@
 
 from math import comb
 
-# Function to count combinations greater than the threshold
 count = 0
 for n in range(1, 100 + 1):
     for r in range(1, n + 1):
