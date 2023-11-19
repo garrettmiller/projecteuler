@@ -10,9 +10,10 @@ nextFibonacci = 0
 fibonacciSum = 0
 
 while (nextFibonacci < 4000000):
+    #Sum last two elements  to get next element
     nextFibonacci = sum(fibonacciList[-2:])
     fibonacciList.append(nextFibonacci)
-    print("Fibonacci List is: " + str(fibonacciList))
+    #print("Fibonacci List is: " + str(fibonacciList))
 
 for i in fibonacciList:
     if (i % 2) == 0:
