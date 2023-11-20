@@ -1,2 +1,4 @@
 numpy
 num2words
+pokerkit
+num2words
