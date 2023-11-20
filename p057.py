@@ -13,27 +13,25 @@
 #1393/985 is the first example where the number of digits in the numerator exceeds the number of digits in the denominator.
 
 #In the first one-thousand expansions, how many fractions contain a numerator with more digits than the denominator?
-#Solved with Brooke on 11/19/2023
+#Solved with Brooke on 11/19/2023 
 
 from fractions import Fraction
 import sys
 
 result = 0
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(1010) #needed so we don't crash
 
 def recursive_fraction(result, iterations, counts):
     numerator = Fraction(result).numerator
     denominator = Fraction(result).denominator
     numLength = len(str(numerator))
     denomLength = len(str(denominator))
-    #print(f"{numerator}/{denominator}")
     if(numLength > denomLength):
         counts += 1
         print(f'counts = {counts}')
     if iterations == 0:
         return 
     else:
-        #Need to rework this line to work with fractions natively
         recursive_fraction(1 + Fraction(1, (1+result)), (iterations-1), counts)
     
 recursive_fraction(1, 1000, 0)
