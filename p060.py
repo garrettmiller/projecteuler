@@ -7,9 +7,11 @@
 #Solved, but sloooooow
 #Optimization idea: Keep track of two terms which led to an invalid result, and don't even run test_list if those values in there
 
-#New idea - find the set of 4 primes, then try the set of 5-primes?
+#New idea - take all the primes, concatenate every one against every other one, see if it's prime, and if so, store it in a set.
+#Then when testing the 5 primes, if any concatenation is not in that set, leave it
+#then test the ones that remain
 
-from itertools import combinations
+from itertools import combinations, permutations
 
 def is_prime(n):
     if n < 2:
@@ -19,7 +21,10 @@ def is_prime(n):
             return False
     return True
 
-def test_list(lst):
+def test_list(lst, mySet):
+    if any(i not in mySet for i in lst):
+        #print(f"Lookup fail - {lst}")
+        return False
     for a, b in combinations(lst, 2):
         if not is_prime(int(str(a) + str(b))) or not is_prime(int(str(b) + str(a))):
             return False
@@ -34,13 +39,27 @@ for i in range(5, 10000, 2):
         prime_list.append(i)
 
 prime_set = set(prime_list)
+concat_set = set()
+lowest_combo = []
 
-for combo in combinations(prime_list, 4):
-    if test_list(combo):
+# Build a list of valid prime concatenations
+for concat in permutations(prime_list,2):
+    my_string = ' '
+    for x in concat:
+        x = str(x)
+        my_string += x
+        if is_prime(int(my_string)):
+            concat_set.add(int(my_string))
+
+print(len(concat_set))
+
+for combo in combinations(prime_list, 5):
+    if test_list(set(combo), concat_set):
         current_sum = sum(combo)
         if current_sum < lowest_sum:
             lowest_sum = current_sum
-            print(f"4-set found: {combo}, sum is {current_sum}, lowest sum is {lowest_sum}")
+            lowest_combo = combo
+            print(f"5-set found: {lowest_combo}, sum is {current_sum}, lowest sum is {lowest_sum}")
 
 print(f"Lowest sum of a 5-set of primes that remain prime with concatenation of any two is {lowest_sum}, made up of {combo}")
 
