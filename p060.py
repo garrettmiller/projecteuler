@@ -34,7 +34,7 @@ prime_set = set(prime_list)
 concat_set = set()
 lowest_combo = []
 
-for a in prime_set:
+for a in tqdm(prime_set):
     for b in prime_set:
         if b < a:
             continue
