@@ -21,9 +21,7 @@ print("Building cube list...")
 for i in range(10,10000):
     cube = i ** 3
     cubeSet.append(cube)
-#sort and uniquify
-cubeSet = sorted(set(cubeSet))
-#Make it an actual set again for speed
+#Make it an actual set
 cubeLookup = set(cubeSet)
 print("Cube list complete! Starting our search:")
 
