@@ -9,11 +9,12 @@
 # (but can't guarantee this is working properly)
 
 from itertools import permutations
-from math import cbrt
 import sys
 
 cubeSet = []
 smallestCube = 9999999999999
+seen = set()
+NUM_CUBES = 5
 
 #Build a list of cubes
 print("Building cube list...")
@@ -22,12 +23,13 @@ for i in range(10,10000):
     cubeSet.append(cube)
 #sort and uniquify
 cubeSet = sorted(set(cubeSet))
+#Make it an actual set again for speed
+cubeLookup = set(cubeSet)
 print("Cube list complete! Starting our search:")
 
-#Take each cube in that list of cubes
-largest_cube = 8
-cubeSetCheck = cubeSet
 for cube in cubeSet:
+    if cube in seen:
+        continue
     #print(f"Testing cube {cube}")
     stringNum = str(cube)
     #Get all permutations of that cube and make a list of lists
@@ -42,18 +44,12 @@ for cube in cubeSet:
         #Collapse the list
         thisNumber = int("".join(permutation))
         #And see if it's in our cube set
-        if thisNumber in cubeSetCheck:
+        if thisNumber in cubeLookup:
             cubeCount += 1
-            print(f"For cube {cube}, permuted cube found: {thisNumber}. [cubeCount: {cubeCount}]")
+            print(f"Permuted cube found: {thisNumber}. [cubeCount: {cubeCount}]")
             solutionList.append(thisNumber)
-        if cubeCount == 3:
-            print(f"Solution found! {min(solutionList)} is the smallest cube for which exactly five permutations of its digits are cube.")
-            sys.exit(0)
-        elif cubeCount != 0:
-            for item in solutionList:
-                #print(f"Removing {item} from cubeSet...")
-                try:
-                    cubeSetCheck.remove(item)
-                except:
-                    pass
-        
+    if cubeCount == NUM_CUBES:
+        print(f"Solution found! {min(solutionList)} is the smallest cube for which exactly five permutations of its digits are cube.")
+        sys.exit(0)
+    else:
+        seen.update(solutionList)
