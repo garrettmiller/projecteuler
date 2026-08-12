@@ -5,8 +5,7 @@
 # Brooke gave me this as a birthday challenge in 2026 :) 
 
 # Seems like it would have worked but was prohibitively slow
-# Ideas: jump ahead to largest cube, also removing tested cubes from cubeSet 
-# (but can't guarantee this is working properly)
+# Yeah it did but it took like 7 hours lol
 
 from itertools import permutations
 import sys
@@ -32,7 +31,6 @@ for cube in cubeSet:
     stringNum = str(cube)
     #Get all permutations of that cube and make a list of lists
     permutationSet=set(permutations(stringNum))
-    #Then for each permutation of that cube
     cubeCount = 0
     solutionList = []
     for permutation in permutationSet:
